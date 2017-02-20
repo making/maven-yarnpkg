@@ -1,0 +1,27 @@
+---
+resources:
+- name: maven-yarnpkg
+  type: git
+  source:
+    uri: git@github.com:making/maven-yarnpkg.git
+    branch: master
+    private_key: {{github-private-key}}
+
+- name: maven-yarnpkg-docker-image
+  type: docker-image
+  source:
+    repository: {{docker-repo}}
+    email: {{docker-email}}
+    username: {{docker-username}}
+    password: {{docker-password}}
+
+jobs:
+- name: build-ship-it
+  plan:
+  - aggregate:
+    - get: maven-yarnpkg
+      trigger: true
+  - put: maven-yarnpkg-docker-image
+    params:
+      build: maven-yarnpkg/
+      tag_as_latest: true
