@@ -10,4 +10,5 @@ RUN bash /tmp/setup_7.x
 RUN apt-get -y update && \
   apt-get install -y --no-install-recommends nodejs yarn && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && \
+  yarn global add create-react-app react-scripts
